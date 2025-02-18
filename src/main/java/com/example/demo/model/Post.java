@@ -12,10 +12,6 @@ public class Post {
         this.creationDate = creationDate;
     }
 
-    public Post (String text){
-        this.text = text;
-    }
-
     public Date getCreationDate() {
         return creationDate;
     }
