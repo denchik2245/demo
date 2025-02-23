@@ -1,21 +1,26 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Post;
+import com.example.demo.repository.PostRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class PostService {
-    List<Post> posts = new ArrayList<>();
-    public List<Post> listAllPosts() {
-        posts.add(new Post((long) posts.size(),"First post", new Date()));
-        return posts;
+    @Autowired
+    PostRepository postRepository;
+
+    public Iterable<Post> listAllPosts() {
+        return postRepository.findAll();
     }
 
-    public void create(String text) {
-        posts.add(new Post((long) posts.size(), text, new Date()));
+    public void create(final String text) {
+        Post post = new Post();
+        post.setText(text);
+        post.setCreationDate(new Date());
+        post.setLikes(0);
+        postRepository.save(post);
     }
 }
